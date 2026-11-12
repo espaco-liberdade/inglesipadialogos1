@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mini-Diálogos da Vida Real: Brasileiro vs. Americana (104 Frases do Básico ao Avançado)</title>
+    
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET E BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #f0f2f5;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px 10px;
+        }
+
+        /* --- TELA DE SENHA DE ACESSO --- */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00247d 0%, #00154d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: #fff;
+            max-width: 420px;
+            width: 100%;
+            padding: 35px 28px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+            text-align: center;
+            border-top: 6px solid #cf142b;
+        }
+
+        .login-card h2 {
+            color: #00247d;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            border: none;
+        }
+
+        .login-card p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .pwd-input {
+            width: 100%;
+            padding: 13px 15px;
+            font-size: 1.05rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .pwd-input:focus {
+            outline: none;
+            border-color: #00247d;
+        }
+
+        .pwd-btn {
+            width: 100%;
+            background-color: #cf142b;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .pwd-btn:hover { background-color: #a50f22; }
+
+        .pwd-error {
+            color: #dc3545;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 1.9rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2980b9;
+            line-height: 1.3;
+        }
+        
+        h2 { 
+            color: #1f618d; 
+            margin-top: 35px; 
+            margin-bottom: 15px; 
+            font-size: 1.4rem; 
+            border-bottom: 2px solid #eaf2f8; 
+            padding-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        p { font-size: 1rem; margin-bottom: 10px; color: #444; }
+        .emoji-large { font-size: 1.4rem; }
+
+        /* --- INTRODUÇÃO E CONTROLES --- */
+        .theme-intro {
+            background-color: #ebf5fb;
+            border-left: 5px solid #2980b9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            page-break-inside: avoid;
+        }
+
+        .stats-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .speaker-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        .pill-br { background-color: #e8f8f5; color: #0e6251; border: 1px solid #a3e4d7; }
+        .pill-us { background-color: #ebf5fb; color: #1f618d; border: 1px solid #85c1e9; }
+
+        /* --- BARRA DE PESQUISA --- */
+        .search-box { margin: 20px 0; }
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #dcdde1;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #2980b9;
+        }
+
+        /* --- BOTÕES DE NAVEGAÇÃO E ÁUDIO --- */
+        .nav-btn {
+            display: block;
+            width: 100%;
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            margin: 15px 0 25px 0;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .nav-btn:hover { background-color: #2c3e50; }
+
+        .act-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eaf2f8;
+        }
+
+        .act-title {
+            color: #1f618d;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .play-act-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .play-act-btn:hover { background-color: #1e8449; }
+        .play-act-btn.stop { background-color: #e74c3c; }
+
+        .audio-btn-inline {
+            background: #eef6fc;
+            border: 1px solid #cce3f6;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.05rem;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin-left: 8px;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+        .audio-btn-inline:hover { background: #2980b9; color: #fff; }
+        .audio-btn-inline:active { transform: scale(0.9); }
+
+        /* --- TABELAS DE DIÁLOGO --- */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 28px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            font-size: 0.95rem;
+        }
+
+        tr.row-br { background-color: #fafffd; border-left: 4px solid #16a085; }
+        tr.row-us { background-color: #f8fbff; border-left: 4px solid #2980b9; }
+        tr:hover { background-color: #fef9e7; }
+
+        .speaker-tag {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .speaker-br { background-color: #d1f2eb; color: #0e6251; }
+        .speaker-us { background-color: #d6eaf8; color: #1b4f72; }
+
+        .turn-num {
+            font-weight: 800;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .sentence-en {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.03rem;
+            display: inline;
+        }
+
+        .sentence-en b {
+            color: #c0392b;
+            background-color: #fdedec;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        .ipa-symbol {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #c0392b;
+            font-size: 0.84rem;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        
+        .character-portuguese-phonetics {
+            display: block;
+            color: #27ae60;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 0.87rem;
+            margin-bottom: 5px;
+        }
+
+        .details-translation {
+            display: block;
+            color: #222;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .teacher-tip {
+            display: block;
+            margin-top: 7px;
+            padding-top: 6px;
+            border-top: 1px dashed #cbd5e1;
+            color: #475569;
+            font-size: 0.84rem;
+        }
+
+        .teacher-tip strong { color: #1f618d; }
+
+        /* --- RESPONSIVIDADE MOBILE --- */
+        @media (max-width: 720px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.45rem; }
+            table { min-width: 100%; }
+            .dialogue-table thead { display: none; }
+            .dialogue-table tr {
+                display: block;
+                border-bottom: 2px solid #e0e0e0;
+                padding: 10px 0;
+            }
+            .dialogue-table td {
+                display: block;
+                width: 100%;
+                border: none;
+                padding: 6px 12px;
+            }
+        }
+
+        /* --- IMPRESSÃO A4 EM PDF --- */
+        @media print {
+            #password-overlay { display: none !important; }
+            body { background-color: #fff; padding: 0; font-size: 9.5pt; }
+            .container { box-shadow: none; max-width: 100%; padding: 0; }
+            .nav-btn, .audio-btn-inline, .play-act-btn, .search-box { display: none !important; }
+            tr, .theme-intro { page-break-inside: avoid; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE BLOQUEIO POR SENHA -->
+    <div id="password-overlay">
+        <div class="login-card">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
+            <h2>Área Exclusiva de Alunos</h2>
+            <p>Digite a senha da apostila para acessar a aula completa de <strong>Mini-Diálogos da Vida Real</strong>:</p>
+            <input type="password" id="pwdInput" class="pwd-input" placeholder="Digite a senha..." onkeypress="if(event.key === 'Enter') checkPassword()">
+            <button class="pwd-btn" onclick="checkPassword()">Acessar Aula ➔</button>
+            <div id="pwdError" class="pwd-error">❌ Senha incorreta! Tente novamente.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- BOTÃO VOLTAR AO MENU PRINCIPAL (TOPO) -->
+        <button class="nav-btn" onclick="window.location.href='https://espaco-liberdade.github.io/inglesipa/'">⬅ Voltar ao Menu Principal</button>
+
+        <h1>Conversas da Vida Real (Mini-Diálogos)<br><span style="font-size: 0.72em; color: #1f618d;">Encontro Espontâneo: Brasileiro vs. Americana (104 Frases do Básico ao Avançado)</span> <span class="emoji-large">🇧🇷🤝🇺🇸</span></h1>
+
+        <div class="theme-intro">
+            <p><strong>Da Primeira Saudação à Conversa Fluente!</strong></p>
+            <p>Nesta aula prática, você vai acompanhar um diálogo completo, espontâneo e realista entre <strong>Rafael (um brasileiro aprendendo inglês)</strong> e <strong>Emily (uma turista americana visitando o Brasil)</strong> em uma cafeteria.</p>
+            <p>A conversa começa no <strong>nível básico</strong> (cumprimentos, de onde você é, pedindo paciência pelo nível de inglês) e evolui naturalmente até o <strong>nível avançado</strong>, passando por temas reais como a viagem de avião, o estado das <strong>rodovias brasileiras cheias de buracos comparadas às estradas americanas</strong>, as delícias da <strong>comida brasileira</strong> (pão de queijo, feijoada, churrasco, abacate com açúcar), choque cultural, estilo de vida e dicas para destravar a fala!</p>
+        </div>
+
+        <div class="stats-bar">
+            <div>
+                <span class="speaker-pill pill-br">🇧🇷 Rafael (Brasileiro): 52 Falas</span>
+                <span class="speaker-pill pill-us">🇺🇸 Emily (Americana): 52 Falas</span>
+            </div>
+            <div style="font-size: 0.9rem; color: #555; font-weight: 600;">
+                🎧 Total: <strong>104 Frases com Áudio, IPA, Fonética, Tradução e Dicas do Professor</strong>
+            </div>
+        </div>
+
+        <!-- BARRA DE PESQUISA -->
+        <div class="search-box">
+            <input type="text" id="dialogueSearch" class="search-input" placeholder="🔍 Pesquisar nos 104 diálogos (ex: pothole, highway, food, feijoada, coffee, Falso Cognato, Present Perfect)..." onkeyup="filterDialogue()">
+        </div>
+
+        <!-- CONTAINER DOS 5 ATOS DO DIÁLOGO (104 FALAS) -->
+        <div id="dialogue-container"></div>
+
+        <!-- BOTÃO VOLTAR AO MENU PRINCIPAL (RODAPÉ) -->
+        <button class="nav-btn" onclick="window.location.href='https://espaco-liberdade.github.io/inglesipa/'" style="margin-top: 30px;">⬅ Voltar ao Menu Principal</button>
+    </div>
+
+    <script>
+        // ============================================================================
+        // VERIFICAÇÃO DE SENHA ("inglesipa")
+        // ============================================================================
+        function checkPassword() {
+            const input = document.getElementById('pwdInput').value.trim().toLowerCase();
+            const errorDiv = document.getElementById('pwdError');
+            if (input === 'inglesipa') {
+                document.getElementById('password-overlay').style.display = 'none';
+                sessionStorage.setItem('inglesipa_auth', 'true');
+            } else {
+                errorDiv.style.display = 'block';
+                document.getElementById('pwdInput').value = '';
+                document.getElementById('pwdInput').focus();
+            }
+        }
+
+        if (sessionStorage.getItem('inglesipa_auth') === 'true') {
+            document.getElementById('password-overlay').style.display = 'none';
+        }
+
+        // ============================================================================
+        // BASE COMPLETA: 104 FALAS (52 DO BRASILEIRO + 52 DA AMERICANA)
+        // ímpares = BR (Rafael) | pares = US (Emily)
+        // ============================================================================
+        const dialogueActs = [
+            {
+                actId: 1,
+                title: "Ato 1: O Primeiro Contato e Quebrando o Gelo (Nível Básico – Falas #1 a #20)",
+                items: [
+                    [1, "BR", "Hello! Excuse me, is this seat <b>taken</b>?", "/həˈloʊ | ɪkˈskjuːz miː | ɪz ðɪs siːt ˈteɪkən/", "(Ra-lôu! Ecs-quiúz mi, iz dhis síit têi-cãn?)", "Olá! Com licença, este lugar está ocupado?", "<strong>Outra forma de dizer:</strong> <em>'Is anyone sitting here?'</em>. Note o particípio <em>taken</em> funcionando como adjetivo (ocupado)."],
+                    [2, "US", "Hi there! No, it's <b>free</b>. Please, go ahead and sit down.", "/haɪ ðer | noʊ | ɪts friː | pliːz ɡoʊ əˈhed ænd sɪt daʊn/", "(Rái dhér! Nôu, its fríi. Plíiz, gôu a-réd énd sít dáun)", "Oi! Não, está livre. Por favor, fique à vontade e sente-se.", "<strong>Expressão natural:</strong> <em>'Go ahead'</em> significa 'vá em frente / fique à vontade'."],
+                    [3, "BR", "Thank you very much! How are you <b>doing</b> today?", "/θæŋk juː ˈveri mʌtʃ | haʊ ɑːr juː ˈduːɪŋ təˈdeɪ/", "(Thénk iu vé-ri mâtch! Ráu ar iu dú-in tu-dêi?)", "Muito obrigado! Como você está hoje?", "<strong>Dica de Fluência:</strong> <em>'How are you doing?'</em> ou <em>'How's it going?'</em> soam muito mais naturais no dia a dia do que apenas <em>'How are you?'</em>."],
+                    [4, "US", "I'm doing great, thanks! What <b>about</b> you?", "/aɪm ˈduːɪŋ ɡreɪt θæŋks | wʌt əˈbaʊt juː/", "(Aim dú-in grêit, thénks! Uót a-báut iu?)", "Estou ótima, obrigada! E você?", "<strong>Devolvendo a pergunta:</strong> <em>'What about you?'</em> ou <em>'How about you?'</em> evitam repetir a pergunta inteira."],
+                    [5, "BR", "I'm good too! I noticed your accent. <b>Where are you from</b>?", "/aɪm ɡʊd tuː | aɪ ˈnoʊtɪst jɔːr ˈæksent | wer ɑːr juː frʌm/", "(Aim gúd tú! Ai nôu-tist iór éc-sent. Uér ar iu frâm?)", "Estou bem também! Notei o seu sotaque. De onde você é?", "<strong>Estrutura essencial:</strong> Nunca pergunte <em>'Where you from?'</em> sem o verbo <em>are</em> na fala cuidada."],
+                    [6, "US", "I'm from the United States, specifically from Austin, Texas. And you?", "/aɪm frʌm ðə juːˈnaɪtɪd steɪts | spəˈsɪfɪkli frʌm ˈɔːstɪn ˈteksəs | ænd juː/", "(Aim frâm dhu Iu-nái-ted Stêits, spe-sí-fi-cli frâm Ós-tin, Téc-sas. Énd iu?)", "Eu sou dos Estados Unidos, especificamente de Austin, no Texas. E você?", "<strong>Preposição de origem:</strong> Usamos sempre <em>from</em> para indicar cidade ou país de origem."],
+                    [7, "BR", "Oh, nice! I'm from <b>right here</b> in Brazil. My name is Rafael.", "/oʊ naɪs | aɪm frʌm raɪt hɪr ɪn brəˈzɪl | maɪ neɪm ɪz ˌhɑːfaɪˈel/", "(Ôu, náis! Aim frâm ráit ríher in Bra-zíl. Mai nêim iz Ra-fa-él)", "Ah, que legal! Eu sou daqui mesmo do Brasil. Meu nome é Rafael.", "<strong>Bloco útil:</strong> <em>'Right here'</em> significa 'daqui mesmo / bem aqui', dando ênfase ao local."],
+                    [8, "US", "Nice to meet you, Rafael! I'm Emily.", "/naɪs tə miːt juː ˌhɑːfaɪˈel | aɪm ˈemɪli/", "(Náis tu míit iu, Ra-fa-él! Aim Ê-mi-li)", "Prazer em conhecer você, Rafael! Eu sou a Emily.", "<strong>Sinônimo elegante:</strong> Você também pode dizer <em>'It's a pleasure to meet you'</em>."],
+                    [9, "BR", "Nice to meet you too, Emily. To be honest, my English is still <b>not very good</b>.", "/naɪs tə miːt juː tuː ˈemɪli | tə biː ˈɑːnɪst maɪ ˈɪŋɡlɪʃ ɪz stɪl nɑːt ˈveri ɡʊd/", "(Náis tu míit iu tú, Ê-mi-li. Tu bí ó-nest, mai Ín-glix iz stíl nót vé-ri gúd)", "Prazer em conhecer você também, Emily. Para ser sincero, meu inglês ainda não é muito bom.", "<strong>Pronúncia:</strong> Em <em>'honest'</em>, a letra H é totalmente muda: diga <em>'ó-nest'</em>."],
+                    [10, "US", "Oh, don't say that! I can <b>understand</b> you perfectly so far.", "/oʊ doʊnt seɪ ðæt | aɪ kæn ˌʌndərˈstænd juː ˈpɜːrfɪktli soʊ fɑːr/", "(Ôu, dôunt sêi dhét! Ai quén ân-der-sténd iu pâr-fect-li sôu fár)", "Ah, não diga isso! Eu consigo entender você perfeitamente até agora.", "<strong>Expressão de tempo:</strong> <em>'So far'</em> significa 'até agora / até este momento'."],
+                    [11, "BR", "I'm still learning, so I <b>might not be able to</b> speak very fast, but I will try!", "/aɪm stɪl ˈlɜːrnɪŋ | soʊ aɪ maɪt nɑːt biː ˈeɪbl tə spiːk ˈveri fæst | bʌt aɪ wɪl traɪ/", "(Aim stíl lâr-nin, sôu ai máit nót bí êi-bôl tu spíic vé-ri fést, bât ai uíl trái!)", "Ainda estou aprendendo, então pode ser que eu não consiga falar muito rápido, mas eu vou tentar!", "<strong>Gramática de Ouro:</strong> Como não podemos juntar dois modais (<em>might can</em> não existe!), usamos <em>'might be able to'</em> (pode ser que eu consiga)."],
+                    [12, "US", "That's the best attitude! Please <b>take your time</b>, there's no rush at all.", "/ðæts ðə best ˈætɪtuːd | pliːz teɪk jɔːr taɪm | ðerz noʊ rʌʃ æt ɔːl/", "(Dhéts dhu bést é-ti-túd! Plíiz têic iór táim, dhérz nôu râx ét ól)", "Essa é a melhor atitude! Por favor, fale no seu tempo (sem pressa), não há pressa nenhuma.", "<strong>Bloco do TAKE:</strong> Lembra da aula do <em>Take</em>? <em>'Take your time'</em> = faça com calma, sem pressa."],
+                    [13, "BR", "Thanks for being so patient! If I <b>make a mistake</b>, feel free to correct me.", "/θæŋks fɔːr ˈbiːɪŋ soʊ ˈpeɪʃnt | ɪf aɪ meɪk ə mɪˈsteɪk fiːl friː tə kəˈrekt miː/", "(Thénks fór bí-in sôu pêi-xent! If ai mêic a mis-têic, fíil fríi tu co-réct mi)", "Obrigado por ser tão paciente! Se eu cometer um erro, sinta-se à vontade para me corrigir.", "<strong>Regra de Preposição:</strong> Após preposições como <em>for</em>, o verbo leva <em>-ing</em> (<em>for being</em>). E 'cometer erro' é sempre <em>make a mistake</em>!"],
+                    [14, "US", "Sure thing! Honestly, I admire anyone who speaks a second language.", "/ʃʊr θɪŋ | ˈɑːnɪstli aɪ ədˈmaɪər ˈeniwʌn huː spiːks ə ˈsekənd ˈlæŋɡwɪdʒ/", "(Xúr thín! Ó-nest-li, ai ad-mái-er ê-ni-uãn rú spíics a sé-când lên-güidj)", "Com certeza! Sinceramente, eu admiro qualquer pessoa que fala um segundo idioma.", "<strong>Fala Americana:</strong> <em>'Sure thing!'</em> é uma maneira super simpática de dizer 'Claro! / Com certeza!'."],
+                    [15, "BR", "Is this your <b>first time</b> visiting Brazil?", "/ɪz ðɪs jɔːr fɜːrst taɪm ˈvɪzɪtɪŋ brəˈzɪl/", "(Iz dhis iór fârst táim ví-zi-tin Bra-zíl?)", "Esta é a sua primeira vez visitando o Brasil?", "<strong>Estrutura útil:</strong> <em>'Is this your first time + verbo-ING?'</em> é um clássico para puxar conversa com estrangeiros."],
+                    [16, "US", "Yes, it is! I arrived three days ago, and I'm loving it.", "/jes ɪt ɪz | aɪ əˈraɪvd θriː deɪz əˈɡoʊ | ænd aɪm ˈlʌvɪŋ ɪt/", "(Iés, it iz! Ai a-ráivd thríi dêiz a-gôu, énd aim lâ-vin it)", "Sim, é! Eu cheguei há três dias, e estou adorando.", "<strong>Dica de Tempo:</strong> <em>'Ago'</em> (atrás) sempre pede o Passado Simples (<em>I arrived three days ago</em>)."],
+                    [17, "BR", "How was your <b>flight</b>? It must be a very long trip from Texas.", "/haʊ wəz jɔːr flaɪt | ɪt mʌst biː ə ˈveri lɔːŋ trɪp frʌm ˈteksəs/", "(Ráu uóz iór fláit? It mâst bí a vé-ri lóng tríp frâm Téc-sas)", "Como foi o seu voo? Deve ser uma viagem muito longa saindo do Texas.", "<strong>Cuidado:</strong> <em>'Trip'</em> é a viagem (substantivo), enquanto <em>'travel'</em> geralmente é usado como verbo (viajar)."],
+                    [18, "US", "It was exhausting! It <b>took</b> almost fourteen hours including the layover in Miami.", "/ɪt wəz ɪɡˈzɔːstɪŋ | ɪt tʊk ˈɔːlmoʊst ˌfɔːrˈtiːn ˈaʊərz ɪnˈkluːdɪŋ ðə ˈleɪoʊvər ɪn maɪˈæmi/", "(It uóz ig-zós-tin! It túk óu-môust fór-tíin áu-ers in-clú-din dhu lêi-ôu-ver in Mai-ê-mi)", "Foi exaustivo! Levou quase quatorze horas, incluindo a escala (conexão) em Miami.", "<strong>Vocabulário de Aeroporto:</strong> <em>'Layover'</em> (ou <em>stopover</em>) significa parada/conexão entre voos. E <em>'It took'</em> = levou/demorou."],
+                    [19, "BR", "Wow, fourteen hours! Did you manage to <b>get some sleep</b> on the plane?", "/waʊ ˌfɔːrˈtiːn ˈaʊərz | dɪd juː ˈmænɪdʒ tə ɡet sʌm sliːp ɑːn ðə pleɪn/", "(Uáu, fór-tíin áu-ers! Did iu mé-nidj tu guét sâm slíip ón dhu plêin?)", "Uau, quatorze horas! Você conseguiu dormir um pouco no avião?", "<strong>Dupla de Ouro:</strong> <em>'Manage to'</em> (conseguir realizar algo difícil) + <em>'get some sleep'</em> (conseguir dormir um pouco)."],
+                    [20, "US", "Barely! I can never sleep well sitting upright in economy class.", "/ˈberli | aɪ kæn ˈnevər sliːp wel ˈsɪtɪŋ ˈʌpraɪt ɪn ɪˈkɑːnəmi klæs/", "(Bér-li! Ai quén né-ver slíip uél sí-tin âp-ráit in i-có-no-mi clés)", "Quase nada! Eu nunca consigo dormir bem sentada reta na classe econômica.", "<strong>Advérbio útil:</strong> <em>'Barely'</em> significa 'mal / quase nada / por um triz'."]
+                ]
+            },
+            {
+                actId: 2,
+                title: "Ato 2: Estradas, Buracos na Pista e Trânsito: Brasil vs. EUA (Nível Básico-Intermediário – Falas #21 a #40)",
+                items: [
+                    [21, "BR", "And what are you <b>thinking of</b> Brazil so far? Have you traveled by car here?", "/ænd wʌt ɑːr juː ˈθɪŋkɪŋ əv brəˈzɪl soʊ fɑːr | hæv juː ˈtrævld baɪ kɑːr hɪr/", "(Énd uót ar iu thín-quin óv Bra-zíl sôu fár? Rév iu tré-vôld bái cár ríher?)", "E o que você está achando do Brasil até agora? Você já viajou de carro por aqui?", "<strong>Outra forma muito comum:</strong> <em>'How do you like Brazil so far?'</em> (O que você está achando do Brasil até agora?)."],
+                    [22, "US", "Yes! Actually, I rented a car at the airport and <b>drove</b> here yesterday.", "/jes ˈæktʃuəli | aɪ ˈrentɪd ə kɑːr æt ði ˈerpɔːrt ænd droʊv hɪr ˈjestərdeɪ/", "(Iés! Éc-tchu-a-li, ai rên-ted a cár ét dhi ér-pórt énd drôuv ríher iés-ter-dêi)", "Sim! Na verdade, eu aluguei um carro no aeroporto e dirigi até aqui ontem.", "<strong>🚨 Falso Cognato Clássico:</strong> <em>'Actually'</em> NÃO significa 'atualmente'! Significa <strong>'Na verdade / Na realidade'</strong>. Atualmente é <em>nowadays</em> ou <em>currently</em>."],
+                    [23, "BR", "Oh, really? Which <b>highways</b> do you think are better: the roads in Brazil or in the US?", "/oʊ ˈrɪəli | wɪtʃ ˈhaɪweɪz duː juː θɪŋk ɑːr ˈbetər | ðə roʊdz ɪn brəˈzɪl ɔːr ɪn ðə juː es/", "(Ôu, rí-li? Uítch rái-uêiz du iu thínk ar bé-ter: dhu rôudz in Bra-zíl ór in dhu Iu-És?)", "Ah, é mesmo? Quais rodovias você acha que são melhores: as estradas do Brasil ou as dos EUA?", "<strong>Which vs. What:</strong> Usamos <em>'Which'</em> quando há uma escolha entre opções definidas (Brasil vs. EUA)."],
+                    [24, "US", "Well, I don't want to sound rude, but driving here was quite an adventure!", "/wel aɪ doʊnt wɑːnt tə saʊnd ruːd | bʌt ˈdraɪvɪŋ hɪr wəz kwaɪt ən ədˈventʃər/", "(Uél, ai dôunt uónt tu sáund rúd, bât drái-vin ríher uóz quáit ãn ad-vên-tcher!)", "Bem, não quero soar indelicada, mas dirigir aqui foi uma baita aventura!", "<strong>Polidez americana:</strong> <em>'Quite an adventure'</em> é um jeito educado e bem-humorado de dizer que foi tenso ou difícil."],
+                    [25, "BR", "Haha, you can be honest! Many roads in Brazil are <b>full of potholes</b>, right?", "/hɑːhɑː juː kæn biː ˈɑːnɪst | ˈmeni roʊdz ɪn brəˈzɪl ɑːr fʊl əv ˈpɑːthoʊlz raɪt/", "(Rá-rá, iu quén bí ó-nest! Mê-ni rôudz in Bra-zíl ar fúl óv pót-rôulz, ráit?)", "Haha, pode ser sincera! Muitas estradas no Brasil são cheias de buracos, né?", "<strong>Vocabulário de Ouro:</strong> Buraco no asfalto/rua em inglês é <strong>pothole</strong> (não diga apenas <em>hole</em>!)."],
+                    [26, "US", "Yes! That's the exact word: <b>potholes</b>! I almost hit a huge one on the highway.", "/jes ðæts ði ɪɡˈzækt wɜːrd ˈpɑːthoʊlz | aɪ ˈɔːlmoʊst hɪt ə hjuːdʒ wʌn ɑːn ðə ˈhaɪweɪ/", "(Iés! Dhéts dhi ig-zéct uârd: pót-rôulz! Ai óu-môust rít a riúdj uãn ón dhu rái-uêi)", "Sim! Essa é a palavra exata: buracos na pista! Eu quase bati em um enorme na rodovia.", "<strong>Pronome 'One':</strong> <em>'A huge one'</em> evita repetir a palavra <em>pothole</em> (um buraco enorme)."],
+                    [27, "BR", "I imagined that! The highways in the United States <b>must be</b> much smoother.", "/aɪ ɪˈmædʒɪnd ðæt | ðə ˈhaɪweɪz ɪn ðə juːˈnaɪtɪd steɪts mʌst biː mʌtʃ ˈsmuːðər/", "(Ai i-mé-djind dhét! Dhu rái-uêiz in dhu Iu-nái-ted Stêits mâst bí mâtch smú-dher)", "Eu imaginei isso! As rodovias nos Estados Unidos devem ser muito mais lisas (bem asfaltadas).", "<strong>Must be (Dedução):</strong> Aqui <em>'must be'</em> não é obrigação, mas sim uma conclusão lógica ('devem ser')."],
+                    [28, "US", "Generally speaking, yes. Our <b>interstate highways</b> are wide and well-maintained.", "/ˈdʒenrəli ˈspiːkɪŋ jes | ˈaʊər ˈɪntərsteɪt ˈhaɪweɪz ɑːr waɪd ænd wel meɪnˈteɪnd/", "(Djên-ra-li spíi-quin, iés. Áu-er ín-ter-stêit rái-uêiz ar uáid énd uél mein-têind)", "De modo geral, sim. Nossas rodovias interestaduais são largas e bem conservadas.", "<strong>Vocabulário:</strong> Nos EUA, as grandes rodovias que cruzam os estados são chamadas de <em>Interstates</em>."],
+                    [29, "BR", "Here in Brazil, some privatized toll roads are great, <b>whereas</b> public roads can be really bumpy.", "/hɪr ɪn brəˈzɪl sʌm ˈpraɪvətaɪzd toʊl roʊdz ɑːr ɡreɪt | ˌwerˈæz ˈpʌblɪk roʊdz kæn biː ˈrɪəli ˈbʌmpi/", "(Ríher in Bra-zíl, sâm prái-va-táizd tôul rôudz ar grêit, uér-éz pâ-blic rôudz quén bí rí-li bâm-pi)", "Aqui no Brasil, algumas rodovias pedagiadas são ótimas, ao passo que estradas públicas podem ser bem esburacadas/trepidantes.", "<strong>Vocabulário de Estrada:</strong> <em>'Toll road'</em> = estrada com pedágio; <em>'bumpy'</em> = estrada irregular que faz o carro pular."],
+                    [30, "US", "I noticed that! When I passed through the <b>toll booth</b>, the asphalt suddenly got much better.", "/aɪ ˈnoʊtɪst ðæt | wen aɪ pæst θruː ðə toʊl buːθ | ði ˈæsfɔːlt ˈsʌdnli ɡɑːt mʌtʃ ˈbetər/", "(Ai nôu-tist dhét! Uén ai pést thrú dhu tôul búuth, dhi és-fólt sâ-den-li gót mâtch bé-ter)", "Eu notei isso! Quando passei pela cabine de pedágio, o asfalto de repente ficou muito melhor.", "<strong>Olha o GET em ação:</strong> <em>'Got much better'</em> = ficou muito melhor (mudança de estado)."],
+                    [31, "BR", "Besides the potholes, we also have a lot of <b>speed bumps</b> inside the cities.", "/bɪˈsaɪdz ðə ˈpɑːthoʊlz | wiː ˈɔːlsoʊ hæv ə lɑːt əv spiːd bʌmps ɪnˈsaɪd ðə ˈsɪtiz/", "(Bi-sáidz dhu pót-rôulz, uí óu-sôu rév a lót óv spíid bâmps in-sáid dhu sí-tiz)", "Além dos buracos, nós também temos muitos quebra-molas (lombadas) dentro das cidades.", "<strong>Termo essencial:</strong> Quebra-molas / lombada em inglês americano é <strong>speed bump</strong>."],
+                    [32, "US", "Oh, tell me about it! Some of those speed bumps aren't even painted yellow!", "/oʊ tel miː əˈbaʊt ɪt | sʌm əv ðoʊz spiːd bʌmps ɑːrnt ˈiːvən ˈpeɪntɪd ˈjeloʊ/", "(Ôu, tél mi a-báut it! Sâm óv dhôuz spíid bâmps árnt í-ven pêin-ted ié-lôu!)", "Ah, nem me fale! Alguns desses quebra-molas nem sequer são pintados de amarelo!", "<strong>Expressão Idiomática:</strong> <em>'Tell me about it!'</em> em conversas não pede explicação; significa <strong>'Nem me fale! / Sei bem como é!'</strong>"],
+                    [33, "BR", "Haha, that's true! If you don't pay attention, your car practically <b>takes off</b>!", "/hɑːhɑː ðæts truː | ɪf juː doʊnt peɪ əˈtenʃn | jɔːr kɑːr ˈpræktɪkli teɪks ɔːf/", "(Rá-rá, dhéts trú! If iu dôunt pêi a-tên-xãn, iór cár préc-ti-cli têics óf!)", "Haha, é verdade! Se você não prestar atenção, seu carro praticamente decola!", "<strong>Revisão na Prática:</strong> Aqui usamos <em>'pay attention'</em> (prestar atenção) e o Phrasal Verb <em>'takes off'</em> (decola)."],
+                    [34, "US", "And what about the motorcycles? They <b>weave</b> between the cars so fast!", "/ænd wʌt əˈbaʊt ðə ˈmoʊtərsaɪklz | ðeɪ wiːv bɪˈtwiːn ðə kɑːrz soʊ fæst/", "(Énd uót a-báut dhu môu-ter-sái-côlz? Dhêi uíiv bi-tuíin dhu cárs sôu fést!)", "E o que dizer das motos? Elas costuram entre os carros tão rápido!", "<strong>Verbo da Aula Extra 5:</strong> Lembra do verbo <em>weave</em> (tecer/costurar no trânsito)? Aqui ele aparece em uso real!"],
+                    [35, "BR", "Yes, we call that 'corredor'. You always have to check your <b>side mirrors</b> before changing lanes.", "/jes wiː kɔːl ðæt | juː ˈɔːlweɪz hæv tə tʃek jɔːr saɪd ˈmɪrərz bɪˈfɔːr ˈtʃeɪndʒɪŋ leɪnz/", "(Iés, uí cól dhét 'corredor'. Iu óu-ueis rév tu tchéc iór sáid mí-rors bi-fór tchêin-djin lêinz)", "Sim, nós chamamos isso de 'corredor'. Você sempre tem que checar os retrovisores laterais antes de mudar de faixa.", "<strong>Vocabulário de Direção:</strong> <em>'Side mirrors'</em> = retrovisores laterais; <em>'changing lanes'</em> = mudar de faixa."],
+                    [36, "US", "In Texas, lane splitting like that is illegal in most places, so it made me nervous at first.", "/ɪn ˈteksəs leɪn ˈsplɪtɪŋ laɪk ðæt ɪz ɪˈliːɡl ɪn moʊst ˈpleɪsɪz | soʊ ɪt meɪd miː ˈnɜːrvəs æt fɜːrst/", "(In Téc-sas, lêin splí-tin láic dhét iz i-líi-gôl in môust plêi-siz, sôu it mêid mi nêr-vâs ét fârst)", "No Texas, andar no corredor assim é ilegal na maioria dos lugares, então isso me deixou nervosa no começo.", "<strong>Vocabulário:</strong> Andar no corredor de moto em inglês chama-se <strong>lane splitting</strong>."],
+                    [37, "BR", "I completely get it. Even for us Brazilians, heavy traffic can be stressful.", "/aɪ kəmˈpliːtli ɡet ɪt | ˈiːvən fɔːr ʌs brəˈzɪliənz ˈhevi ˈtræfɪk kæn biː ˈstresfl/", "(Ai com-plíit-li guét it. Í-ven fór âs Bra-zí-li-anz, ré-vi tré-fic quén bí strés-fôl)", "Eu entendo perfeitamente. Mesmo para nós brasileiros, o trânsito pesado pode ser estressante.", "<strong>Frase natural:</strong> <em>'I completely get it'</em> = Eu entendo perfeitamente / Compreendo totalmente."],
+                    [38, "US", "On the bright side, the scenery along the coast is breathtaking!", "/ɑːn ðə braɪt saɪd | ðə ˈsiːnəri əˈlɔːŋ ðə koʊst ɪz ˈbreθteɪkɪŋ/", "(Ón dhu bráit sáid, dhu síi-ne-ri a-lóng dhu côust iz bréth-têi-quin!)", "Pelo lado positivo, a paisagem ao longo da costa é de tirar o fôlego!", "<strong>Conectivo Positivo:</strong> <em>'On the bright side'</em> significa 'Olhando pelo lado bom / Pelo lado positivo'."],
+                    [39, "BR", "Oh, without a doubt! Brazil has its infrastructure problems, but there are <b>amazing things</b> to do here.", "/oʊ wɪˈðaʊt ə daʊt | brəˈzɪl hæz ɪts ˈɪnfrəstrʌktʃər ˈprɑːbləmz | bʌt ðer ɑːr əˈmeɪzɪŋ θɪŋz tə duː hɪr/", "(Ôu, uí-dháut a dáut! Bra-zíl réz its ín-fra-strâc-tcher pró-blems, bât dhér ar a-mêi-zin thíngz tu dú ríher)", "Ah, sem dúvida! O Brasil tem seus problemas de infraestrutura, mas há coisas incríveis para fazer aqui.", "<strong>Pronúncia de 'Doubt':</strong> A letra B em <em>doubt</em> (dúvida) é muda! Pronuncie <em>'dáut'</em>."],
+                    [40, "US", "I couldn't agree more! And honestly, the food alone makes the whole trip worth it.", "/aɪ ˈkʊdnt əˈɡriː mɔːr | ænd ˈɑːnɪstli ðə fuːd əˈloʊn meɪks ðə hoʊl trɪp wɜːrθ ɪt/", "(Ai cú-dânt a-gríi mór! Énd ó-nest-li, dhu fúud a-lôun mêics dhu rôul tríp uârth it)", "Eu não poderia concordar mais! E, sinceramente, só a comida já faz a viagem inteira valer a pena.", "<strong>Expressão Avançada:</strong> <em>'I couldn't agree more'</em> = Concordo 100% / Não poderia concordar mais."]
+                ]
+            },
+            {
+                actId: 3,
+                title: "Ato 3: Gastronomia, Choque Cultural e Sabores (Nível Intermediário – Falas #41 a #62)",
+                items: [
+                    [41, "BR", "Now you're talking! <b>What do you think of</b> Brazilian food so far?", "/naʊ jʊr ˈtɔːkɪŋ | wʌt duː juː θɪŋk əv brəˈzɪliən fuːd soʊ fɑːr/", "(Náu iúr tó-quin! Uót du iu thínk óv Bra-zí-li-an fúud sôu fár?)", "Agora você falou a minha língua! O que você está achando da comida brasileira até agora?", "<strong>Idiom entusiasmo:</strong> <em>'Now you're talking!'</em> usa-se quando alguém toca num assunto que você adora."],
+                    [42, "US", "I am officially addicted to 'pão de queijo'! What is the secret behind that cheese bread?", "/aɪ æm əˈfɪʃəli əˈdɪktɪd tə | wʌt ɪz ðə ˈsiːkrət bɪˈhaɪnd ðæt tʃiːz bred/", "(Ai ém o-fí-xa-li a-díc-ted tu pão de queijo! Uót iz dhu síi-cret bi-ráind dhét tchíiz bréd?)", "Eu estou oficialmente viciada em pão de queijo! Qual é o segredo por trás daquele pãozinho de queijo?", "<strong>Regra do TO:</strong> Em <em>'addicted to'</em> (viciado em), usamos sempre a preposição <em>to</em>."],
+                    [43, "BR", "Haha, everybody falls in love with it! It's <b>made with</b> cassava starch and cured cheese.", "/hɑːhɑː ˈevribɑːdi fɔːlz ɪn lʌv wɪθ ɪt | ɪts meɪd wɪθ kəˈsɑːvə stɑːrtʃ ænd kjʊrd tʃiːz/", "(Rá-rá, é-vri-bó-di fólz in lâv uídh it! Its mêid uídh ca-sá-va stártch énd quiúrd tchíiz)", "Haha, todo mundo se apaixona por ele! Ele é feito com polvilho (amido de mandioca) e queijo curado.", "<strong>Gramática:</strong> <em>'Everybody'</em> é singular em inglês, por isso o verbo leva S (<em>everybody falls</em>). Mandioca é <em>cassava</em> ou <em>manioc</em>."],
+                    [44, "US", "It's so crispy on the outside and chewy on the inside! And it's naturally gluten-free, right?", "/ɪts soʊ ˈkrɪspi ɑːn ði ˌaʊtˈsaɪd ænd ˈtʃuːi ɑːn ði ɪnˈsaɪd | ænd ɪts ˈnætʃrəli ˈɡluːtn friː raɪt/", "(Its sôu crís-pi ón dhi áut-sáid énd tchú-i ón dhi in-sáid! Énd its né-tchu-ra-li glú-ten fríi, ráit?)", "É tão crocante por fora e macio/elástico por dentro! E é naturalmente sem glúten, né?", "<strong>Vocabulário de Textura:</strong> <em>'Crispy'</em> = crocante; <em>'chewy'</em> = macio/puxa-puxa (como pão de queijo ou brownie)."],
+                    [45, "BR", "Exactly! Have you had the chance to try a traditional Brazilian <b>steakhouse</b> yet?", "/ɪɡˈzæktli | hæv juː hæd ðə tʃæns tə traɪ ə trəˈdɪʃənl brəˈzɪliən ˈsteɪkhaʊs jet/", "(Ig-zéct-li! Rév iu réd dhu tchéns tu trái a tra-dí-xo-nôl Bra-zí-li-an stêic-ráus iét?)", "Exatamente! Você já teve a chance de experimentar uma churrascaria tradicional brasileira?", "<strong>Present Perfect (Have you had... yet?):</strong> Usado para perguntar se a pessoa já viveu aquela experiência até hoje."],
+                    [46, "US", "Yes, I went to one last night! The waiters kept <b>bringing</b> meat on skewers non-stop!", "/jes aɪ went tə wʌn læst naɪt | ðə ˈweɪtərz kept ˈbrɪŋɪŋ miːt ɑːn ˈskjuːərz ˌnɑːnˈstɑːp/", "(Iés, ai uênt tu uãn lést náit! Dhu uêi-ters quépt brín-guin míit ón squiú-ers nón-stóp!)", "Sim, eu fui a uma ontem à noite! Os garçons continuavam trazendo carne no espeto sem parar!", "<strong>Keep + ING:</strong> <em>'Kept bringing'</em> significa 'continuaram trazendo repetidamente'."],
+                    [47, "BR", "That's our famous rodízio! Did you understand how the little green and red card works?", "/ðæts ˈaʊər ˈfeɪməs | dɪd juː ˌʌndərˈstænd haʊ ðə ˈlɪtl ɡriːn ænd red kɑːrd wɜːrks/", "(Dhéts áu-er fêi-mâs rodízio! Did iu ân-der-sténd ráu dhu lí-rôl gríin énd réd cárd uârcs?)", "Esse é o nosso famoso rodízio! Você entendeu como funciona aquele cartãozinho verde e vermelho?", "<strong>Indirect Question:</strong> Como a pergunta começa com <em>'Did you understand'</em>, o final fica na ordem normal: <em>'how the card works'</em> (sem <em>does</em>)."],
+                    [48, "US", "At first I forgot to flip it to red, so my plate piled up with 'picanha'! Not that I'm complaining!", "/æt fɜːrst aɪ fərˈɡɑːt tə flɪp ɪt tə red | soʊ maɪ pleɪt paɪld ʌp wɪθ | nɑːt ðæt aɪm kəmˈpleɪnɪŋ/", "(Ét fârst ai for-gót tu flíp it tu réd, sôu mai plêit páild âp uídh picanha! Nót dhét aim com-plêi-nin!)", "No começo esqueci de virar para o vermelho, então meu prato encheu de picanha! Não que eu esteja reclamando!", "<strong>Expressão coloquial:</strong> <em>'Not that I'm complaining!'</em> = Não que eu esteja reclamando!"],
+                    [49, "BR", "Haha, picanha is unbeatable! And on Saturdays, you <b>must try</b> our 'feijoada'.", "/hɑːhɑː ɪz ʌnˈbiːtəbl | ænd ɑːn ˈsætərdeɪz juː mʌst traɪ ˈaʊər/", "(Rá-rá, picanha iz ân-bíi-ta-bôl! Énd ón Sé-ter-dêiz, iu mâst trái áu-er feijoada)", "Haha, a picanha é imbatível! E aos sábados, você precisa provar a nossa feijoada.", "<strong>Uso de 'Must':</strong> Além de obrigação, <em>must</em> é muito usado para dar recomendações entusiasmadas (<em>You must try!</em>)."],
+                    [50, "US", "I've heard about it! It's a black bean stew with pork, served with rice and orange slices, right?", "/aɪv hɜːrd əˈbaʊt ɪt | ɪts ə blæk biːn stuː wɪθ pɔːrk | sɜːrvd wɪθ raɪs ænd ˈɔːrɪndʒ ˈslaɪsɪz raɪt/", "(Áiv rârd a-báut it! Its a bléc bíin stú uídh pórc, sârvd uídh ráis énd ó-rendj slái-siz, ráit?)", "Já ouvi falar! É um ensopado de feijão preto com carne de porco, servido com arroz e fatias de laranja, certo?", "<strong>Como explicar Feijoada em inglês:</strong> <em>'A rich black bean and pork stew'</em> é a descrição perfeita para estrangeiros."],
+                    [51, "BR", "Spot on! Along with collard greens and 'farofa'. Just be prepared to <b>take a nap</b> afterwards!", "/spɑːt ɑːn | əˈlɔːŋ wɪθ ˈkɑːlərd ɡriːnz ænd | dʒʌst biː prɪˈperd tə teɪk ə næp ˈæftərwərdz/", "(Spót ón! A-lóng uídh có-lard gríinz énd farofa. Djâst bí pri-pérd tu têic a nép éf-ter-uârdz!)", "Exatamente (Na mosca)! Junto com couve refogada e farofa. Só esteja preparada para tirar um cochilo depois!", "<strong>Expressão excelente:</strong> <em>'Spot on!'</em> significa 'Na mosca! / Exatamente isso!'. Couve em inglês é <em>collard greens</em>."],
+                    [52, "US", "Haha, I'll definitely keep my Saturday afternoon free for that nap then!", "/hɑːhɑː aɪl ˈdefɪnətli kiːp maɪ ˈsætərdeɪ ˌæftərˈnuːn friː fɔːr ðæt næp ðen/", "(Rá-rá, áil dé-fi-net-li quíip mai Sé-ter-dêi éf-ter-núun fríi fór dhét nép dhén!)", "Haha, com certeza vou deixar minha tarde de sábado livre para esse cochilo então!", "<strong>Pronúncia de 'Definitely':</strong> Cuidado para não falar 'definitively'; o mais comum é <em>definitely</em> (/ˈdefɪnətli/)."],
+                    [53, "BR", "By the way, was there any food here that <b>surprised</b> you or felt strange?", "/baɪ ðə weɪ | wəz ðer ˈeni fuːd hɪr ðæt sərˈpraɪzd juː ɔːr felt streɪndʒ/", "(Bái dhu uêi, uóz dhér ê-ni fúud ríher dhét sar-práizd iu ór félt strêindj?)", "Aliás (A propósito), houve alguma comida aqui que te surpreendeu ou pareceu estranha?", "<strong>Conectivo de conversa:</strong> <em>'By the way'</em> é perfeito para introduzir uma curiosidade nova no papo."],
+                    [54, "US", "Yes! Yesterday someone offered me <b>avocado</b> blended with milk and sugar as a sweet smoothie!", "/jes ˈjestərdeɪ ˈsʌmwʌn ˈɔːfərd miː ˌævəˈkɑːdoʊ ˈblendɪd wɪθ mɪlk ænd ˈʃʊɡər æz ə swiːt ˈsmuːði/", "(Iés! Iés-ter-dêi sâm-uãn ó-ferd mi é-vo-cá-dou blên-ded uídh mílk énd xú-gar éz a suíit smú-dhi!)", "Sim! Ontem alguém me ofereceu abacate batido com leite e açúcar como uma vitamina doce!", "<strong>Choque Cultural Clássico:</strong> Vitamina de fruta batida com leite em inglês chama-se <strong>smoothie</strong> (não diga <em>vitamin</em>!)."],
+                    [55, "BR", "Oh, I forgot about that! In the US, you only eat avocado in <b>savory</b> dishes like guacamole, right?", "/oʊ aɪ fərˈɡɑːt əˈbaʊt ðæt | ɪn ðə juː es juː ˈoʊnli iːt ˌævəˈkɑːdoʊ ɪn ˈseɪvəri ˈdɪʃɪz laɪk ˌɡwɑːkəˈmoʊli raɪt/", "(Ôu, ai for-gót a-báut dhét! In dhu Iu-És, iu ôun-li íit é-vo-cá-dou in sêi-vo-ri dí-xiz láic guá-ca-môu-li, ráit?)", "Ah, esqueci disso! Nos EUA, vocês só comem abacate em pratos salgados como guacamole, né?", "<strong>Salgado vs. Doce:</strong> Prato salgado (que não é doce) diz-se <strong>savory</strong>. (<em>Salty</em> é quando tem sal demais!)."],
+                    [56, "US", "Right! Eating sweet avocado blew my mind, though it actually tasted pretty good!", "/raɪt | ˈiːtɪŋ swiːt ˌævəˈkɑːdoʊ bluː maɪ maɪnd | ðoʊ ɪt ˈæktʃuəli ˈteɪstɪd ˈprɪti ɡʊd/", "(Ráit! Íi-tin suíit é-vo-cá-dou blú mai máind, dhôu it éc-tchu-a-li têis-ted prí-ti gúd!)", "Isso mesmo! Comer abacate doce explodiu minha cabeça (me surpreendeu muito), embora na verdade tenha ficado muito bom!", "<strong>Idiom e Intensificador:</strong> <em>'Blew my mind'</em> = me deixou de queixo caído; <em>'pretty good'</em> = muito bom (aqui <em>pretty</em> significa 'bastante/muito')."],
+                    [57, "BR", "And what about our coffee? People say American coffee is much weaker than Brazilian coffee.", "/ænd wʌt əˈbaʊt ˈaʊər ˈkɔːfi | ˈpiːpl seɪ əˈmerɪkən ˈkɔːfi ɪz mʌtʃ ˈwiːkər ðæn brəˈzɪliən ˈkɔːfi/", "(Énd uót a-báut áu-er có-fi? Píi-pôl sêi A-mé-ri-can có-fi iz mâtch uíi-quer dhén Bra-zí-li-an có-fi)", "E quanto ao nosso café? As pessoas dizem que o café americano é muito mais fraco que o café brasileiro.", "<strong>Comparativo:</strong> <em>Weak</em> (fraco) -> <em>weaker than</em> (mais fraco do que); <em>Strong</em> (forte) -> <em>stronger than</em>."],
+                    [58, "US", "Haha, your little cup of 'cafezinho' is like rocket fuel! One sip and I was wide awake!", "/hɑːhɑː jɔːr ˈlɪtl kʌp əv ɪz laɪk ˈrɑːkɪt ˈfjuːəl | wʌn sɪp ænd aɪ wəz waɪd əˈweɪk/", "(Rá-rá, iór lí-rôl câp óv cafezinho iz láic ró-quet fiú-ôl! Uãn síp énd ai uóz uáid a-uêic!)", "Haha, a xicarazinha de 'cafezinho' de vocês é como combustível de foguete! Um gole e eu fiquei totalmente acordada!", "<strong>Vocabulário útil:</strong> <em>'Sip'</em> = pequeno gole; <em>'wide awake'</em> = completamente acordado / sem sono nenhum."],
+                    [59, "BR", "We drink it several times a day! Another difference is <b>tipping</b> at restaurants, isn't it?", "/wiː drɪŋk ɪt ˈsevrəl taɪmz ə deɪ | əˈnʌðər ˈdɪfrəns ɪz ˈtɪpɪŋ æt ˈrestrɑːnts ˈɪznt ɪt/", "(Uí drínk it sé-vrol táimz a dêi! A-nó-dher dí-frens iz tí-pin ét rés-tronts, í-zânt it?)", "Nós bebemos várias vezes ao dia! Outra diferença é dar gorjeta nos restaurantes, não é?", "<strong>Question Tag (isn't it?):</strong> Usada no final da frase para confirmar uma informação ('não é?'). Gorjeta é <em>tip</em>."],
+                    [60, "US", "Oh, huge difference! In the US, you're expected to tip 18% to 20%, whereas here it's just 10% included.", "/oʊ hjuːdʒ ˈdɪfrəns | ɪn ðə juː es jʊr ɪkˈspektɪd tə tɪp eɪˈtiːn tə ˈtwenti pərˈsent | ˌwerˈæz hɪr ɪts dʒʌst ten pərˈsent ɪnˈkluːdɪd/", "(Ôu, riúdj dí-frens! In dhu Iu-És, iúr ecs-péc-ted tu típ ei-tíin tu tuên-ti per-sênt, uér-éz ríher its djâst tén per-sênt in-clú-ded)", "Ah, uma diferença enorme! Nos EUA, espera-se que você dê de 18% a 20% de gorjeta, ao passo que aqui são só 10% já incluídos.", "<strong>Conectivo Avançado:</strong> Veja como Emily usa <em>'whereas'</em> (ao passo que / enquanto que) para contrastar os dois países."],
+                    [61, "BR", "Yes, and our menu prices already include taxes, so you pay exactly what you see.", "/jes ænd ˈaʊər ˈmenjuː ˈpraɪsɪz ɔːlˈredi ɪnˈkluːd ˈtæksɪz | soʊ juː peɪ ɪɡˈzæktli wʌt juː siː/", "(Iés, énd áu-er mê-niu prái-siz óu-ré-di in-clúd téc-siz, sôu iu pêi ig-zéct-li uót iu síi)", "Sim, e os preços do nosso cardápio já incluem os impostos, então você paga exatamente o que vê.", "<strong>Vocabulário de Viagem:</strong> Nos EUA, o imposto (<em>sales tax</em>) é somado só no caixa; no Brasil já vem embutido."],
+                    [62, "US", "Honestly, that's so much more convenient! In the US, the final price at the register is always a surprise.", "/ˈɑːnɪstli ðæts soʊ mʌtʃ mɔːr kənˈviːniənt | ɪn ðə juː es ðə ˈfaɪnl praɪs æt ðə ˈredʒɪstər ɪz ˈɔːlweɪz ə sərˈpraɪz/", "(Ó-nest-li, dhéts sôu mâtch mór con-víi-ni-ent! In dhu Iu-És, dhu fái-nôl práis ét dhu ré-djis-ter iz óu-ueis a sar-práiz)", "Sinceramente, isso é muito mais prático! Nos EUA, o preço final no caixa é sempre uma surpresa.", "<strong>Vocabulário:</strong> <em>'At the register'</em> (ou <em>at the checkout</em>) significa 'no caixa' da loja ou restaurante."]
+                ]
+            },
+            {
+                actId: 4,
+                title: "Ato 4: Estilo de Vida, Clima, Saúde e Hospitalidade (Nível Intermediário-Avançado – Falas #63 a #84)",
+                items: [
+                    [63, "BR", "Apart from the food, what has impressed you the most about <b>Brazilian culture</b>?", "/əˈpɑːrt frʌm ðə fuːd | wʌt hæz ɪmˈprest juː ðə moʊst əˈbaʊt brəˈzɪliən ˈkʌltʃər/", "(A-párt frâm dhu fúud, uót réz im-prést iu dhu môust a-báut Bra-zí-li-an câl-tcher?)", "Além da comida, o que mais te impressionou na cultura brasileira?", "<strong>Conectivo:</strong> <em>'Apart from'</em> (ou <em>Aside from</em>) significa 'Além de / Deixando de lado'."],
+                    [64, "US", "Definitely the warmth of the people! Brazilians are so welcoming and easy to talk to.", "/ˈdefɪnətli ðə wɔːrmθ əv ðə ˈpiːpl | brəˈzɪliənz ɑːr soʊ ˈwelkəmɪŋ ænd ˈiːzi tə tɔːk tuː/", "(Dé-fi-net-li dhu uórmth óv dhu píi-pôl! Bra-zí-li-anz ar sôu uél-ca-min énd í-zi tu tóc tú)", "Com certeza o calor humano das pessoas! Os brasileiros são tão acolhedores e fáceis de conversar.", "<strong>Vocabulário:</strong> <em>'Warmth'</em> vem de <em>warm</em> (quente/caloroso) e significa 'calor humano / afeto'."],
+                    [65, "BR", "That's true! We love making new friends, even if we have to communicate using <b>hand gestures</b>!", "/ðæts truː | wiː lʌv ˈmeɪkɪŋ nuː frendz | ˈiːvən ɪf wiː hæv tə kəˈmjuːnɪkeɪt ˈjuːzɪŋ hænd ˈdʒestʃərz/", "(Dhéts trú! Uí lâv mêi-quin nú frênds, í-ven if uí rév tu co-miú-ni-quêit iú-zin rénd djés-tchers!)", "Isso é verdade! Nós adoramos fazer novos amigos, mesmo se tivermos que nos comunicar usando gestos com as mãos!", "<strong>Conectivo Condicional:</strong> <em>'Even if'</em> = mesmo se / ainda que."],
+                    [66, "US", "Haha, yesterday a lady at the bakery couldn't speak English, but she helped me with a huge smile!", "/hɑːhɑː ˈjestərdeɪ ə ˈleɪdi æt ðə ˈbeɪkəri ˈkʊdnt spiːk ˈɪŋɡlɪʃ | bʌt ʃiː helpt miː wɪθ ə hjuːdʒ smaɪl/", "(Rá-rá, iés-ter-dêi a lêi-di ét dhu bêi-que-ri cú-dânt spíic Ín-glix, bât xíi rélpt mi uídh a riúdj smáil!)", "Haha, ontem uma senhora na padaria não sabia falar inglês, mas me ajudou com um sorriso enorme!", "<strong>Pronúncia do Passado Regular (-ED):</strong> Em <em>helped</em>, o -ed final tem som seco de <strong>T</strong> (<em>rélpt</em>), nunca 'rél-ped'!"],
+                    [67, "BR", "In the US, people tend to be a bit more reserved with strangers, <b>don't they</b>?", "/ɪn ðə juː es ˈpiːpl tend tə biː ə bɪt mɔːr rɪˈzɜːrvd wɪθ ˈstreɪndʒərz | doʊnt ðeɪ/", "(In dhu Iu-És, píi-pôl tênd tu bí a bít mór ri-zârvd uídh strêin-djers, dôunt dhêi?)", "Nos EUA, as pessoas tendem a ser um pouco mais reservadas com estranhos, não é?", "<strong>Verbo 'Tend to':</strong> Excelente para fazer generalizações educadas sem parecer preconceituoso (<em>tend to be</em> = costumam ser)."],
+                    [68, "US", "It depends on the region. In the South, like Texas, people are friendly, but big cities like New York are much more fast-paced.", "/ɪt dɪˈpendz ɑːn ðə ˈriːdʒən | ɪn ðə saʊθ laɪk ˈteksəs ˈpiːpl ɑːr ˈfrendli | bʌt bɪɡ ˈsɪtiz laɪk nuː jɔːrk ɑːr mʌtʃ mɔːr ˈfæst peɪst/", "(It di-pênds ón dhu ríi-djãn. In dhu Sáuth, láic Téc-sas, píi-pôl ar frênd-li, bât bíg sí-tiz láic Nú Iórc ar mâtch mór fést-pêist)", "Depende da região. No Sul, como no Texas, as pessoas são amigáveis, mas cidades grandes como Nova York têm um ritmo muito mais acelerado.", "<strong>Regra de Preposição:</strong> Nunca diga <em>'depends of'</em>! Em inglês é sempre <strong>depends ON</strong>!"],
+                    [69, "BR", "I've heard Americans have a very intense <b>work-life balance</b>. Do you get thirty days of paid vacation like we do?", "/aɪv hɜːrd əˈmerɪkənz hæv ə ˈveri ɪnˈtens wɜːrk laɪf ˈbæləns | duː juː ɡet ˈθɜːrti deɪz əv peɪd veɪˈkeɪʃn laɪk wiː duː/", "(Áiv rârd A-mé-ri-canz rév a vé-ri in-têns uârk-láif bé-lans. Du iu guét thâr-ti dêiz óv pêid vei-quêi-xãn láic uí dú?)", "Ouvi dizer que os americanos têm uma relação trabalho-vida pessoal bem intensa. Vocês ganham trinta dias de férias remuneradas como nós?", "<strong>Vocabulário de Trabalho:</strong> <em>'Paid vacation'</em> = férias remuneradas; <em>'work-life balance'</em> = equilíbrio entre trabalho e vida pessoal."],
+                    [70, "US", "Thirty days?! Oh, I wish! Most American jobs only give you two weeks of paid time off a year.", "/ˈθɜːrti deɪz | oʊ aɪ wɪʃ | moʊst əˈmerɪkən dʒɑːbz ˈoʊnli ɡɪv juː tuː wiːks əv peɪd taɪm ɔːf ə jɪr/", "(Thâr-ti dêiz?! Ôu, ai uíx! Môust A-mé-ri-can djóbz ôun-li guív iu tú uíics óv pêid táim óf a íer)", "Trinta dias?! Ah, quem me dera! A maioria dos empregos americanos só te dá duas semanas de folga remunerada por ano.", "<strong>Expressão rápida:</strong> <em>'I wish!'</em> sozinho significa <strong>'Quem me dera! / Bem que eu queria!'</strong>."],
+                    [71, "BR", "Only two weeks? No wonder Americans work so hard! What about <b>healthcare</b> if you get sick?", "/ˈoʊnli tuː wiːks | noʊ ˈwʌndər əˈmerɪkənz wɜːrk soʊ hɑːrd | wʌt əˈbaʊt ˈhelθker ɪf juː ɡet sɪk/", "(Ôun-li tú uíics? Nôu uân-der A-mé-ri-canz uârk sôu rárd! Uót a-báut rélf-quér if iu guét síc?)", "Só duas semanas? Não é à toa que os americanos trabalham tanto! E quanto ao sistema de saúde se você ficar doente?", "<strong>Bloco Idiomático:</strong> <em>'No wonder...'</em> significa <strong>'Não é à toa que... / Não admira que...'</strong>."],
+                    [72, "US", "Healthcare in the US is strictly private and super expensive if you don't have good insurance.", "/ˈhelθker ɪn ðə juː es ɪz ˈstrɪktli ˈpraɪvət ænd ˈsuːpər ɪkˈspensɪv ɪf juː doʊnt hæv ɡʊd ɪnˈʃʊrəns/", "(Rélf-quér in dhu Iu-És iz stríct-li prái-vet énd sú-per ecs-pên-siv if iu dôunt rév gúd in-xú-rans)", "A saúde nos EUA é estritamente privada e super cara se você não tiver um bom plano de saúde.", "<strong>Vocabulário:</strong> Plano de saúde / seguro em inglês é <strong>health insurance</strong>."],
+                    [73, "BR", "Here we have a public system called SUS. Even tourists can get free emergency care if needed.", "/hɪr wiː hæv ə ˈpʌblɪk ˈsɪstəm kɔːld | ˈiːvən ˈtʊrɪsts kæn ɡet friː ɪˈmɜːrdʒənsi ker ɪf ˈniːdɪd/", "(Ríher uí rév a pâ-blic sís-tem cóld SUS. Í-ven tú-rists quén guét fríi i-mâr-djen-si quér if níi-ded)", "Aqui nós temos um sistema público chamado SUS. Até turistas podem receber atendimento de emergência gratuito se necessário.", "<strong>Olha o GET novamente:</strong> <em>'Get free emergency care'</em> = receber atendimento de emergência gratuito."],
+                    [74, "US", "That's really good to know! Hopefully I won't need it, but it gives me peace of mind.", "/ðæts ˈrɪəli ɡʊd tə noʊ | ˈhoʊpfəli aɪ woʊnt niːd ɪt | bʌt ɪt ɡɪvz miː piːs əv maɪnd/", "(Dhéts rí-li gúd tu nôu! Rôup-fu-li ai uôunt níid it, bât it guívz mi píis óv máind)", "Isso é muito bom saber! Espero que eu não precise, mas me dá paz de espírito (tranquilidade).", "<strong>Vocabulário rico:</strong> <em>'Hopefully'</em> = espero que sim / tomara que; <em>'peace of mind'</em> = paz de espírito / tranquilidade."],
+                    [75, "BR", "And how are you dealing with the tropical weather? Is it too hot for you?", "/ænd haʊ ɑːr juː ˈdiːlɪŋ wɪθ ðə ˈtrɑːpɪkl ˈweðər | ɪz ɪt tuː hɑːt fɔːr juː/", "(Énd ráu ar iu díi-lin uídh dhu tró-pi-côl ué-dher? Iz it tú rót fór iu?)", "E como você está lidando com o clima tropical? Está quente demais para você?", "<strong>Phrasal Verb útil:</strong> <em>'Deal with'</em> significa 'lidar com' uma situação."],
+                    [76, "US", "Actually, Texas gets scorching hot in the summer too, so I'm pretty used to the heat!", "/ˈæktʃuəli ˈteksəs ɡets ˈskɔːrtʃɪŋ hɑːt ɪn ðə ˈsʌmər tuː | soʊ aɪm ˈprɪti juːzd tə ðə hiːt/", "(Éc-tchu-a-li, Téc-sas guéts scór-tchin rót in dhu sâ-mer tú, sôu aim prí-ti iúzd tu dhu ríit!)", "Na verdade, o Texas fica extremamente quente (escaldante) no verão também, então estou bem acostumada com o calor!", "<strong>Vocabulário Avançado:</strong> <em>'Scorching hot'</em> = um calor escaldante / de rachar; <em>'be used to'</em> = estar acostumado com."],
+                    [77, "BR", "Oh, that makes sense! What places <b>have you visited</b> since you arrived?", "/oʊ ðæt meɪks sens | wʌt ˈpleɪsɪz hæv juː ˈvɪzɪtɪd sɪns juː əˈraɪvd/", "(Ôu, dhét mêics sêns! Uót plêi-siz rév iu ví-zi-ted síns iu a-ráivd?)", "Ah, isso faz sentido! Quais lugares você já visitou desde que chegou?", "<strong>Combinação Clássica:</strong> Present Perfect (<em>have you visited</em>) + <em>since</em> + Simple Past (<em>since you arrived</em>)."],
+                    [78, "US", "I've been to the beach, visited the botanical garden, and listened to live 'bossa nova' last night.", "/aɪv bɪn tə ðə biːtʃ | ˈvɪzɪtɪd ðə bəˈtænɪkl ˈɡɑːrdn | ænd ˈlɪsnd tə laɪv læst naɪt/", "(Áiv bín tu dhu bíitch, ví-zi-ted dhu bo-té-ni-côl gár-den, énd lí-send tu láiv bossa nova lést náit)", "Eu estive na praia, visitei o jardim botânico e ouvi bossa nova ao vivo ontem à noite.", "<strong>🚨 Homógrafo 'LIVE':</strong> O verbo <em>live</em> (morar) diz-se /lɪv/ ('lív'). Mas o adjetivo <em>live</em> (ao vivo) diz-se <strong>/laɪv/ ('láiv')</strong>!"],
+                    [79, "BR", "Live Brazilian music has a special vibe! Do people in the US listen to bossa nova?", "/laɪv brəˈzɪliən ˈmjuːzɪk hæz ə ˈspeʃl vaɪb | duː ˈpiːpl ɪn ðə juː es ˈlɪsn tə/", "(Láiv Bra-zí-li-an miú-zic réz a spé-xôl váib! Du píi-pôl in dhu Iu-És lí-sãn tu bossa nova?)", "Música brasileira ao vivo tem uma vibração especial! As pessoas nos EUA ouvem bossa nova?", "<strong>Preposição obrigatória:</strong> Quem ouve, ouve A alguma coisa: sempre diga <strong>listen TO</strong> (nunca <em>listen music</em>!)."],
+                    [80, "US", "Yes! 'The Girl from Ipanema' plays in almost every American coffee shop and jazz lounge!", "/jes ðə ɡɜːrl frʌm ˌɪpəˈniːmə pleɪz ɪn ˈɔːlmoʊst ˈevri əˈmerɪkən ˈkɔːfi ʃɑːp ænd dʒæz laʊndʒ/", "(Iés! 'Dhu Gârl frâm I-pa-níi-ma' plêiz in óu-môust é-vri A-mé-ri-can có-fi xóp énd djéz láundj!)", "Sim! 'Garota de Ipanema' toca em quase toda cafeteria e bar de jazz americano!", "<strong>3ª Pessoa Singular:</strong> A música (<em>It</em>) recebe o -S no presente: <em>'plays'</em>."],
+                    [81, "BR", "That makes me proud! Are you planning to visit any other cities before you fly back?", "/ðæt meɪks miː praʊd | ɑːr juː ˈplænɪŋ tə ˈvɪzɪt ˈeni ˈʌðər ˈsɪtiz bɪˈfɔːr juː flaɪ bæk/", "(Dhét mêics mi práud! Ar iu plé-nin tu ví-zit ê-ni ó-dher sí-tiz bi-fór iu flái béc?)", "Isso me deixa orgulhoso! Você está planejando visitar alguma outra cidade antes de voar de volta?", "<strong>Estrutura Causativa com Make:</strong> <em>'Makes me proud'</em> = me deixa (me faz sentir) orgulhoso."],
+                    [82, "US", "I'd love to see the Iguazu Falls in Paraná! Everyone says they are even bigger than Niagara Falls.", "/aɪd lʌv tə siː ði ɪˈɡwɑːzuː fɔːlz ɪn | ˈevriwʌn sez ðeɪ ɑːr ˈiːvən ˈbɪɡər ðæn naɪˈæɡrə fɔːlz/", "(Áid lâv tu síi dhi I-guá-zu Fólz in Paraná! É-vri-uãn séz dhêi ar í-ven bí-guer dhén Nai-é-gra Fólz)", "Eu adoraria conhecer as Cataratas do Iguaçu no Paraná! Todo mundo diz que elas são ainda maiores que as Cataratas do Niágara.", "<strong>Pronúncia de 'Says':</strong> Cuidado! Embora <em>say</em> seja 'sêi', na 3ª pessoa <strong>says</strong> pronuncia-se <strong>/sez/ ('séz')</strong>!"],
+                    [83, "BR", "You definitely should go! If you go there, <b>make sure</b> you take the boat tour under the waterfalls.", "/juː ˈdefɪnətli ʃʊd ɡoʊ | ɪf juː ɡoʊ ðer meɪk ʃʊr juː teɪk ðə boʊt tʊr ˈʌndər ðə ˈwɔːtərfɔːlz/", "(Iu dé-fi-net-li xúd gôu! If iu gôu dhér, mêic xúr iu têic dhu bôut túr ân-der dhu uó-ter-fólz)", "Você com certeza deveria ir! Se você for lá, certifique-se de fazer o passeio de barco debaixo das cataratas.", "<strong>Collocation com TAKE:</strong> Para passeios turísticos, usamos <strong>take a tour</strong> (nunca <em>make a tour</em>)."],
+                    [84, "US", "I'll put that at the top of my bucket list! You get completely soaked, right?", "/aɪl pʊt ðæt æt ðə tɑːp əv maɪ ˈbʌkɪt lɪst | juː ɡet kəmˈpliːtli soʊkt raɪt/", "(Áil pút dhét ét dhu tóp óv mai bâ-quet líst! Iu guét com-plíit-li sôuct, ráit?)", "Vou colocar isso no topo da minha lista de desejos! A gente fica completamente encharcado, né?", "<strong>Vocabulário de Ouro:</strong> <em>'Bucket list'</em> = lista de coisas para fazer antes de morrer/na vida; <em>'get soaked'</em> = ficar encharcado."]
+                ]
+            },
+            {
+                actId: 5,
+                title: "Ato 5: Fluência, Segredos do Idioma e Despedida (Nível Avançado – Falas #85 a #104)",
+                items: [
+                    [85, "BR", "Yes, soaked from head to toe! Hey Emily, look at that: we <b>have been talking</b> for half an hour!", "/jes soʊkt frʌm hed tə toʊ | heɪ ˈemɪli lʊk æt ðæt | wiː hæv bɪn ˈtɔːkɪŋ fɔːr hæf ən ˈaʊər/", "(Iés, sôuct frâm réd tu tôu! Rêi Ê-mi-li, lúc ét dhét: uí rév bín tó-quin fór réf ãn áu-er!)", "Sim, encharcado da cabeça aos pés! Ei, Emily, olhe só: nós estamos conversando há meia hora!", "<strong>Present Perfect Continuous:</strong> Para dizer há quanto tempo uma ação está acontecendo (<em>estamos conversando há...</em>), usamos <strong>have been talking</strong>!"],
+                    [86, "US", "See?! And at the beginning you told me your English wasn't good! You're doing amazing!", "/siː | ænd æt ðə bɪˈɡɪnɪŋ juː toʊld miː jɔːr ˈɪŋɡlɪʃ ˈwʌznt ɡʊd | jʊr ˈduːɪŋ əˈmeɪzɪŋ/", "(Síi?! Énd ét dhu bi-guí-nin iu tôuld mi iór Ín-glix uó-zânt gúd! Iúr dú-in a-mêi-zin!)", "Viu só?! E no começo você me disse que seu inglês não era bom! Você está mandando super bem!", "<strong>Reported Speech (Discurso Indireto):</strong> <em>'You told me your English wasn't good'</em> recua o verbo para o passado."],
+                    [87, "BR", "In the past, I <b>used to freeze</b> whenever I had to speak because I tried to translate word by word.", "/ɪn ðə pæst aɪ ˈjuːst tə friːz wenˈevər aɪ hæd tə spiːk | bɪˈkɔːz aɪ traɪd tə trænsˈleɪt wɜːrd baɪ wɜːrd/", "(In dhu pést, ai iúst tu fríiz uén-é-ver ai réd tu spíic, bi-cóz ai tráid tu tréins-lêit uârd bái uârd)", "No passado, eu costumava travar (congelar) sempre que tinha que falar, porque eu tentava traduzir palavra por palavra.", "<strong>Hábito Passado Superado:</strong> <em>'I used to freeze'</em> mostra algo que acontecia antes, mas não acontece mais."],
+                    [88, "US", "That happens to everyone learning a language! What helped you overcome that block?", "/ðæt ˈhæpənz tə ˈevriwʌn ˈlɜːrnɪŋ ə ˈlæŋɡwɪdʒ | wʌt helpt juː ˌoʊvərˈkʌm ðæt blɑːk/", "(Dhét ré-penz tu é-vri-uãn lâr-nin a lên-güidj! Uót rélpt iu ôu-ver-câm dhét blóc?)", "Isso acontece com todo mundo que aprende um idioma! O que ajudou você a superar esse bloqueio?", "<strong>Verbo forte:</strong> <em>'Overcome'</em> (overcame - overcome) significa 'superar / vencer' um obstáculo ou medo."],
+                    [89, "BR", "I started learning phonetics with the <b>IPA method</b> and focusing on whole blocks and scenes instead of isolated words.", "/aɪ ˈstɑːrtɪd ˈlɜːrnɪŋ fəˈnetɪks wɪθ ði aɪ piː eɪ ˈmeθəd | ænd ˈfoʊkəsɪŋ ɑːn hoʊl blɑːks ænd siːnz ɪnˈsted əv ˈaɪsəleɪtɪd wɜːrdz/", "(Ai stár-ted lâr-nin fo-né-tics uídh dhi Ái-Píi-Êi mé-thod, énd fôu-ca-sin ón rôul blócs énd síinz ins-téd óv ái-so-lêi-ted uârdz)", "Comecei a aprender fonética com o método IPA e a focar em blocos inteiros e cenas em vez de palavras isoladas.", "<strong>Conectivo de Substituição:</strong> <em>'Instead of'</em> significa 'em vez de / ao invés de'."],
+                    [90, "US", "That is brilliant! Native speakers think in chunks and patterns, not in grammar rules.", "/ðæt ɪz ˈbrɪliənt | ˈneɪtɪv ˈspiːkərz θɪŋk ɪn tʃʌŋks ænd ˈpætərnz | nɑːt ɪn ˈɡræmər ruːlz/", "(Dhét iz brí-li-ant! Nêi-tiv spíi-quers thínk in tchâncs énd pé-ternz, nót in gré-mer rúulz)", "Isso é brilhante! Falantes nativos pensam em blocos (pedaços prontos) e padrões, não em regras de gramática.", "<strong>Vocabulário de Linguística:</strong> <em>'Chunks'</em> são os blocos prontos de palavras que nativos usam sem desmontar."],
+                    [91, "BR", "Exactly! For example, today I used 'get' and 'take' naturally without stopping to think in Portuguese.", "/ɪɡˈzæktli | fɔːr ɪɡˈzæmpl təˈdeɪ aɪ juːzd ɡet ænd teɪk ˈnætʃrəli wɪˈðaʊt ˈstɑːpɪŋ tə θɪŋk ɪn ˌpɔːrtʃəˈɡiːz/", "(Ig-zéct-li! Fór ig-zém-pôl, tu-dêi ai iúzd 'get' énd 'take' né-tchu-ra-li uí-dháut stó-pin tu thínk in Pór-tchu-guíiz)", "Exatamente! Por exemplo, hoje eu usei 'get' e 'take' naturalmente sem parar para pensar em português.", "<strong>Regra do 'Without':</strong> Após a preposição <em>without</em> (sem), o verbo entra sempre com <strong>-ING</strong> (<em>without stopping</em>)."],
+                    [92, "US", "And your pronunciation is super clear! Do you practice listening every single day?", "/ænd jɔːr prəˌnʌnsiˈeɪʃn ɪz ˈsuːpər klɪr | duː juː ˈpræktɪs ˈlɪsnɪŋ ˈevri ˈsɪŋɡl deɪ/", "(Énd iór pro-nân-si-êi-xãn iz sú-per clíer! Du iu préc-tis lí-se-nin é-vri sín-gôl dêi?)", "E a sua pronúncia é super clara! Você pratica a escuta absolutamente todos os dias?", "<strong>Atenção à escrita e som:</strong> O verbo é <em>pronounce</em> (pro-náuns), mas o substantivo é <strong>pronunciation</strong> (pro-nân-si-êi-xãn)!"],
+                    [93, "BR", "I try to! Even when I'm driving my kids home from school, I practice naming things on the street in English.", "/aɪ traɪ tuː | ˈiːvən wen aɪm ˈdraɪvɪŋ maɪ kɪdz hoʊm frəm skuːl | aɪ ˈpræktɪs ˈneɪmɪŋ θɪŋz ɑːn ðə striːt ɪn ˈɪŋɡlɪʃ/", "(Ai trái tú! Í-ven uén aim drái-vin mai quíds rôum frâm skúul, ai préc-tis nêi-min thíngz ón dhu stríit in Ín-glix)", "Eu tento! Mesmo quando estou levando meus filhos de carro da escola para casa, pratico dar nome às coisas na rua em inglês.", "<strong>Verbo 'Practice':</strong> Sempre que outro verbo vier depois de <em>practice</em>, ele exige <strong>-ING</strong> (<em>practice naming / practice speaking</em>)."],
+                    [94, "US", "What a great habit! Your kids must be picking up English really fast with you.", "/wʌt ə ɡreɪt ˈhæbɪt | jɔːr kɪdz mʌst biː ˈpɪkɪŋ ʌp ˈɪŋɡlɪʃ ˈrɪəli fæst wɪθ juː/", "(Uót a grêit ré-bit! Iór quíds mâst bí pí-quin âp Ín-glix rí-li fést uídh iu)", "Que ótimo hábito! Seus filhos devem estar aprendendo (pegando) inglês super rápido com você.", "<strong>Phrasal Verb 'Pick up':</strong> Quando falamos de idiomas ou habilidades, <em>'pick up'</em> significa aprender na prática, quase por osmose!"],
+                    [95, "BR", "They are! Kids are like sponges. If I <b>had started</b> at their age, it would have been even easier.", "/ðeɪ ɑːr | kɪdz ɑːr laɪk ˈspʌndʒɪz | ɪf aɪ hæd ˈstɑːrtɪd æt ðer eɪdʒ | ɪt wʊd həv bɪn ˈiːvən ˈiːziər/", "(Dhêi ar! Quíds ar láic spân-djiz. If ai réd stár-ted ét dhér êidj, it uúd rév bín í-ven í-zi-er)", "Eles estão! Crianças são como esponjas. Se eu tivesse começado na idade deles, teria sido ainda mais fácil.", "<strong>3rd Conditional (Nível Avançado):</strong> <em>'If I had started... it would have been'</em> (hipótese sobre o passado)."],
+                    [96, "US", "True, but it's never too late! You are living proof that adults can reach fluency with the right method.", "/truː bʌt ɪts ˈnevər tuː leɪt | juː ɑːr ˈlɪvɪŋ pruːf ðæt əˈdʌlts kæn riːtʃ ˈfluːənsi wɪθ ðə raɪt ˈmeθəd/", "(Trú, bât its né-ver tú lêit! Iu ar lí-vin prúf dhét a-dâlts quén ríitch flú-en-si uídh dhu ráit mé-thod)", "Verdade, mas nunca é tarde demais! Você é a prova viva de que adultos podem alcançar a fluência com o método certo.", "<strong>Collocation:</strong> <em>'Living proof'</em> = prova viva; <em>'reach fluency'</em> = alcançar a fluência (sem preposição após <em>reach</em>!)."],
+                    [97, "BR", "Thank you so much for your kind words, Emily! Talking to you today <b>made my day</b>.", "/θæŋk juː soʊ mʌtʃ fɔːr jɔːr kaɪnd wɜːrdz ˈemɪli | ˈtɔːkɪŋ tə juː təˈdeɪ meɪd maɪ deɪ/", "(Thénk iu sôu mâtch fór iór cáind uârdz, Ê-mi-li! Tó-quin tu iu tu-dêi mêid mai dêi)", "Muito obrigado pelas suas palavras gentis, Emily! Conversar com você hoje ganhou o meu dia (fez o meu dia feliz).", "<strong>Idiom Afetuoso:</strong> <em>'Made my day'</em> significa 'fez o meu dia valer a pena / alegrou o meu dia inteiro'."],
+                    [98, "US", "Mine too, Rafael! I was sitting here alone, and I ended up having the best conversation of my trip.", "/maɪn tuː ˌhɑːfaɪˈel | aɪ wəz ˈsɪtɪŋ hɪr əˈloʊn | ænd aɪ ˈendɪd ʌp ˈhævɪŋ ðə best ˌkɑːnvərˈseɪʃn əv maɪ trɪp/", "(Máin tú, Ra-fa-él! Ai uóz sí-tin ríher a-lôun, énd ai ên-ded âp ré-vin dhu bést cón-ver-sêi-xãn óv mai tríp)", "O meu também, Rafael! Eu estava sentada aqui sozinha e acabei tendo a melhor conversa da minha viagem.", "<strong>Phrasal Verb de Ouro:</strong> <em>'End up + verbo-ING'</em> significa <strong>'acabar fazendo algo'</strong> que não estava planejado."],
+                    [99, "BR", "Look at the time! I <b>have got to</b> go pick up my kids now, otherwise I'll get stuck in traffic.", "/lʊk æt ðə taɪm | aɪ hæv ɡɑːt tə ɡoʊ pɪk ʌp maɪ kɪdz naʊ | ˈʌðərwaɪz aɪl ɡet stʌk ɪn ˈtræfɪk/", "(Lúc ét dhu táim! Ai rév gót tu gôu píc âp mai quíds náu, ó-dher-uáiz áil guét stâc in tré-fic)", "Olhe a hora! Eu tenho que ir buscar meus filhos agora, caso contrário vou ficar preso no trânsito.", "<strong>Combo Avançado:</strong> <em>'Pick up'</em> (buscar alguém de carro) + <em>'otherwise'</em> (caso contrário) + <em>'get stuck'</em> (ficar preso/agarado)."],
+                    [100, "US", "Of course, don't let me hold you up! Let's exchange numbers so we can <b>keep in touch</b>.", "/əv kɔːrs doʊnt let miː hoʊld juː ʌp | lets ɪksˈtʃeɪndʒ ˈnʌmbərz soʊ wiː kæn kiːp ɪn tʌtʃ/", "(Óv córs, dôunt lét mi rôuld iu âp! Léts ecs-tchêindj nâm-bers sôu uí quén quíip in tâtch)", "Claro, não deixe eu te atrasar! Vamos trocar telefones para podermos manter contato.", "<strong>Phrasal Verb & Idiom:</strong> <em>'Hold someone up'</em> = atrasar/reter alguém; <em>'keep in touch'</em> = manter contato."],
+                    [101, "BR", "Here is my card! If you need any tips about the city or restaurants, just <b>let me know</b>.", "/hɪr ɪz maɪ kɑːrd | ɪf juː niːd ˈeni tɪps əˈbaʊt ðə ˈsɪti ɔːr ˈrestrɑːnts | dʒʌst let miː noʊ/", "(Ríher iz mai cárd! If iu níid ê-ni típs a-báut dhu sí-ti ór rés-tronts, djâst lét mi nôu)", "Aqui está o meu cartão! Se você precisar de qualquer dica sobre a cidade ou restaurantes, é só me avisar.", "<strong>Bloco indispensável:</strong> <em>'Let me know'</em> é a forma mais natural de dizer 'me avise / me dê um toque'."],
+                    [102, "US", "Thank you so much! I'll definitely text you before I head to the Iguazu Falls.", "/θæŋk juː soʊ mʌtʃ | aɪl ˈdefɪnətli tekst juː bɪˈfɔːr aɪ hed tə ði ɪˈɡwɑːzuː fɔːlz/", "(Thénk iu sôu mâtch! Áil dé-fi-net-li técst iu bi-fór ai réd tu dhi I-guá-zu Fólz)", "Muito obrigada! Com certeza vou te mandar uma mensagem antes de ir para as Cataratas do Iguaçu.", "<strong>Verbos modernos:</strong> <em>'Text someone'</em> = mandar mensagem de texto/WhatsApp; <em>'head to'</em> = ir em direção a / partir para."],
+                    [103, "BR", "Drive safely, watch out for the <b>potholes</b>, and enjoy the rest of your stay in Brazil!", "/draɪv ˈseɪfli | wɑːtʃ aʊt fɔːr ðə ˈpɑːthoʊlz | ænd ɪnˈdʒɔɪ ðə rest əv jɔːr steɪ ɪn brəˈzɪl/", "(Dráiv sêif-li, uótch áut fór dhu pót-rôulz, énd en-djói dhu rést óv iór stêi in Bra-zíl!)", "Dirija com segurança, tome cuidado com os buracos na pista e aproveite o restante da sua estadia no Brasil!", "<strong>Phrasal Verb de Alerta:</strong> <em>'Watch out for...'</em> significa 'tome cuidado com / fique atento a'."),
+                    [104, "US", "Haha, I will keep my eyes on the road! Have a wonderful day with your family, Rafael. <b>Take care</b>!", "/hɑːhɑː aɪ wɪl kiːp maɪ aɪz ɑːn ðə roʊd | hæv ə ˈwʌndərfl deɪ wɪθ jɔːr ˈfæməli ˌhɑːfaɪˈel | teɪk ker/", "(Rá-rá, ai uíl quíip mai áiz ón dhu rôud! Rév a uân-der-fôl dêi uídh iór fé-mi-li, Ra-fa-él. Têic quér!)", "Haha, vou manter meus olhos na pista! Tenha um dia maravilhoso com a sua família, Rafael. Se cuida!", "<strong>Despedida Clássica:</strong> Fechamos o diálogo com <em>'Take care!'</em> (Se cuida!), selando uma conversa completa da vida real!"]
+                ]
+            }
+        ];
+
+        // ============================================================================
+        // RENDERIZAÇÃO DAS 104 FALAS EM TABELAS ORGANIZADAS POR ATO
+        // ============================================================================
+        const container = document.getElementById('dialogue-container');
+        let htmlOutput = '';
+
+        dialogueActs.forEach(act => {
+            htmlOutput += `
+            <div class="act-block" id="act-${act.actId}">
+                <div class="act-header-bar">
+                    <h2 class="act-title">${act.title}</h2>
+                    <button class="play-act-btn" id="btn-act-${act.actId}" onclick="playEntireAct(${act.actId})">▶ Ouvir Este Ato Inteiro</button>
+                </div>
+                <div class="table-responsive-wrapper">
+                    <table class="dialogue-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45%;">Personagem e Fala em Inglês (Áudio)</th>
+                                <th style="width: 55%;">Pronúncia (IPA + Simplificada), Tradução e Dica do Professor</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+            act.items.forEach(item => {
+                const num = item[0];
+                const speaker = item[1]; // "BR" ou "US"
+                const enHtml = item[2];
+                const ipa = item[3];
+                const phonetic = item[4];
+                const pt = item[5];
+                const tip = item[6];
+
+                const isBr = speaker === "BR";
+                const rowClass = isBr ? "row-br" : "row-us";
+                const badgeClass = isBr ? "speaker-br" : "speaker-us";
+                const speakerName = isBr ? "🇧🇷 Rafael (Brasileiro)" : "🇺🇸 Emily (Americana)";
+                const pitchVal = isBr ? 0.92 : 1.08; // Diferencia sutilmente o timbre masculino e feminino
+
+                const cleanAudioText = enHtml.replace(/<\/?b>/g, '').replace(/'/g, "\\'");
+
+                htmlOutput += `
+                            <tr class="dialogue-row ${rowClass}" data-search="${enHtml.toLowerCase()} ${pt.toLowerCase()} ${tip.toLowerCase()} ${act.title.toLowerCase()}">
+                                <td>
+                                    <div>
+                                        <span class="turn-num">#${num}</span>
+                                        <span class="speaker-tag ${badgeClass}">${speakerName}</span>
+                                    </div>
+                                    <span class="sentence-en">${enHtml}</span>
+                                    <button class="audio-btn-inline" onclick="playAudio('${cleanAudioText}', ${pitchVal})" title="Ouvir fala #${num}">🔊</button>
+                                </td>
+                                <td>
+                                    <span class="ipa-symbol">${ipa}</span>
+                                    <span class="character-portuguese-phonetics">${phonetic}</span>
+                                    <span class="details-translation">${pt}</span>
+                                    <span class="teacher-tip">💡 ${tip}</span>
+                                </td>
+                            </tr>`;
+            });
+
+            htmlOutput += `
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
+        });
+
+        container.innerHTML = htmlOutput;
+
+        // ============================================================================
+        // FILTRO DE PESQUISA EM TEMPO REAL NAS 104 FALAS
+        // ============================================================================
+        function filterDialogue() {
+            const query = document.getElementById('dialogueSearch').value.toLowerCase();
+            const actBlocks = document.querySelectorAll('.act-block');
+
+            actBlocks.forEach(block => {
+                const rows = block.querySelectorAll('.dialogue-row');
+                let visibleRows = 0;
+
+                rows.forEach(row => {
+                    const text = row.getAttribute('data-search');
+                    if (text.includes(query)) {
+                        row.style.display = '';
+                        visibleRows++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                block.style.display = visibleRows > 0 ? 'block' : 'none';
+            });
+        }
+
+        // ============================================================================
+        // SINTETIZADOR DE VOZ (INDIVIDUAL E SEQUENCIAL POR ATO)
+        // ============================================================================
+        let voices = [];
+        let isPlayingSequence = false;
+        let currentActPlaying = null;
+
+        function loadVoices() { voices = window.speechSynthesis.getVoices(); }
+        loadVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        function getBestEnglishVoice() {
+            if (voices.length === 0) loadVoices();
+            let targetVoice = voices.find(voice => 
+                (voice.name.includes('Google') || voice.name.includes('Premium') || voice.name.includes('Samantha')) 
+                && voice.lang.includes('en-US')
+            );
+            if (!targetVoice) targetVoice = voices.find(voice => voice.lang === 'en-US');
+            if (!targetVoice) targetVoice = voices.find(voice => voice.lang.startsWith('en'));
+            return targetVoice;
+        }
+
+        function playAudio(text, pitch = 1) {
+            stopSequence();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.86;
+                utterance.pitch = pitch;
+
+                const targetVoice = getBestEnglishVoice();
+                if (targetVoice) {
+                    utterance.voice = targetVoice;
+                    utterance.lang = targetVoice.lang;
+                } else {
+                    utterance.lang = 'en-US';
+                }
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function stopSequence() {
+            isPlayingSequence = false;
+            if (currentActPlaying !== null) {
+                const btn = document.getElementById(`btn-act-${currentActPlaying}`);
+                if (btn) {
+                    btn.textContent = "▶ Ouvir Este Ato Inteiro";
+                    btn.classList.remove('stop');
+                }
+                currentActPlaying = null;
+            }
+        }
+
+        function playEntireAct(actId) {
+            if (isPlayingSequence && currentActPlaying === actId) {
+                window.speechSynthesis.cancel();
+                stopSequence();
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            stopSequence();
+
+            const actObj = dialogueActs.find(a => a.actId === actId);
+            if (!actObj) return;
+
+            isPlayingSequence = true;
+            currentActPlaying = actId;
+            const btn = document.getElementById(`btn-act-${actId}`);
+            if (btn) {
+                btn.textContent = "⏹ Parar Áudio do Ato";
+                btn.classList.add('stop');
+            }
+
+            let index = 0;
+            function speakNext() {
+                if (!isPlayingSequence || index >= actObj.items.length) {
+                    stopSequence();
+                    return;
+                }
+                const item = actObj.items[index];
+                const isBr = item[1] === "BR";
+                const cleanText = item[2].replace(/<\/?b>/g, '');
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.rate = 0.86;
+                utterance.pitch = isBr ? 0.92 : 1.08;
+
+                const targetVoice = getBestEnglishVoice();
+                if (targetVoice) {
+                    utterance.voice = targetVoice;
+                    utterance.lang = targetVoice.lang;
+                } else {
+                    utterance.lang = 'en-US';
+                }
+
+                utterance.onend = () => {
+                    index++;
+                    if (isPlayingSequence) {
+                        setTimeout(speakNext, 450);
+                    }
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+
+            speakNext();
+        }
+    </script>
+</body>
+</html>
