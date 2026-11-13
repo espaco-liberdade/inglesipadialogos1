@@ -23,85 +23,6 @@
             padding: 20px 10px;
         }
 
-        /* --- TELA DE SENHA DE ACESSO --- */
-        #password-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #00247d 0%, #00154d 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-        }
-
-        .login-card {
-            background: #fff;
-            max-width: 420px;
-            width: 100%;
-            padding: 35px 28px;
-            border-radius: 14px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-            text-align: center;
-            border-top: 6px solid #cf142b;
-        }
-
-        .login-card h2 {
-            color: #00247d;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            border: none;
-        }
-
-        .login-card p {
-            color: #555;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .pwd-input {
-            width: 100%;
-            padding: 13px 15px;
-            font-size: 1.05rem;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 14px;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s;
-        }
-
-        .pwd-input:focus {
-            outline: none;
-            border-color: #00247d;
-        }
-
-        .pwd-btn {
-            width: 100%;
-            background-color: #cf142b;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .pwd-btn:hover { background-color: #a50f22; }
-
-        .pwd-error {
-            color: #dc3545;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 12px;
-            display: none;
-        }
-
         /* --- CONTAINER PRINCIPAL --- */
         .container {
             max-width: 1080px;
@@ -390,7 +311,6 @@
 
         /* --- IMPRESSÃO A4 EM PDF --- */
         @media print {
-            #password-overlay { display: none !important; }
             body { background-color: #fff; padding: 0; font-size: 9.5pt; }
             .container { box-shadow: none; max-width: 100%; padding: 0; }
             .nav-btn, .audio-btn-inline, .play-act-btn, .search-box { display: none !important; }
@@ -400,18 +320,6 @@
     </style>
 </head>
 <body>
-
-    <!-- TELA DE BLOQUEIO POR SENHA -->
-    <div id="password-overlay">
-        <div class="login-card">
-            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔒</div>
-            <h2>Área Exclusiva de Alunos</h2>
-            <p>Digite a senha da apostila para acessar a aula completa de <strong>Mini-Diálogos da Vida Real</strong>:</p>
-            <input type="password" id="pwdInput" class="pwd-input" placeholder="Digite a senha..." onkeypress="if(event.key === 'Enter') checkPassword()">
-            <button class="pwd-btn" onclick="checkPassword()">Acessar Aula ➔</button>
-            <div id="pwdError" class="pwd-error">❌ Senha incorreta! Tente novamente.</div>
-        </div>
-    </div>
 
     <div class="container">
         <!-- BOTÃO VOLTAR AO MENU PRINCIPAL (TOPO) -->
@@ -448,26 +356,6 @@
     </div>
 
     <script>
-        // ============================================================================
-        // VERIFICAÇÃO DE SENHA ("inglesipa")
-        // ============================================================================
-        function checkPassword() {
-            const input = document.getElementById('pwdInput').value.trim().toLowerCase();
-            const errorDiv = document.getElementById('pwdError');
-            if (input === 'inglesipa') {
-                document.getElementById('password-overlay').style.display = 'none';
-                sessionStorage.setItem('inglesipa_auth', 'true');
-            } else {
-                errorDiv.style.display = 'block';
-                document.getElementById('pwdInput').value = '';
-                document.getElementById('pwdInput').focus();
-            }
-        }
-
-        if (sessionStorage.getItem('inglesipa_auth') === 'true') {
-            document.getElementById('password-overlay').style.display = 'none';
-        }
-
         // ============================================================================
         // BASE COMPLETA: 104 FALAS (52 DO BRASILEIRO + 52 DA AMERICANA)
         // ímpares = BR (Rafael) | pares = US (Emily)
